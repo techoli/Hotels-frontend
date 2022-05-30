@@ -3,16 +3,22 @@ import ReactDOM from 'react-dom'
 import logo from './logo.svg';
 import './App.css';
 import Navbar from './Component/Navbar';
-import {BrowserRouter, Route, Routes, Link} from 'react-router-dom';
+import {BrowserRouter, Route, Routes, Link, matchPath} from 'react-router-dom';
 
 import Homescreen from './screens/Homescreen';
+import Bookingscreen from './screens/Bookingscreen';
 
 function App() {
   return (
     <div className="App">
       <Navbar/>
+      
       <BrowserRouter>
-      <Routes> <Route path="/homes"  element = {<Homescreen/>}/></Routes>
+      <Routes> 
+        <Route path="/homes"  element = {<Homescreen/>}/>
+        <Route path="/book/:roomid"  element = {<Bookingscreen/>}/>
+
+      </Routes>
       </BrowserRouter>
 
       
