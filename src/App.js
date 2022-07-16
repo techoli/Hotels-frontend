@@ -8,6 +8,9 @@ import Homescreen from './screens/Homescreen';
 import Bookingscreen from './screens/Bookingscreen';
 import Registerscreen from './screens/Registerscreen';
 import Loginscreen from './screens/Loginscreen';
+import Profilescreen from './screens/Profilescreen';
+import Adminscreen from './screens/Adminscreen';
+import Updateroom from './Component/Updateroom';
 
 function App() {
   return (
@@ -16,11 +19,15 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/homes" element={<Homescreen />} />
-          <Route path="/book/:roomid" element={<Bookingscreen />} />
+          <Route path="/book/:roomid/:checkin/:checkout" element={<Bookingscreen />} />
           <Route path="/register" element={<Registerscreen />} />
           <Route path="/login" element={<Loginscreen />} />
+          <Route path="/bookings" element={<Profilescreen />} />
+          <Route path="/admin" element={<Adminscreen />} />
+          <Route path="/updateroom/:rumid" element={<Updateroom />} />
         </Routes>
       </BrowserRouter>
+      
 
 
     </div>
