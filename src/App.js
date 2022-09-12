@@ -11,6 +11,7 @@ import Loginscreen from './screens/Loginscreen';
 import Profilescreen from './screens/Profilescreen';
 import Adminscreen from './screens/Adminscreen';
 import Updateroom from './Component/Updateroom';
+import Landingscreen from './screens/Landingscreen';
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
           <Route path="/bookings" element={<Profilescreen />} />
           <Route path="/admin" element={<Adminscreen />} />
           <Route path="/updateroom/:rumid" element={<Updateroom />} />
+          <Route path="/" element={<Landingscreen />} />
+        
         </Routes>
       </BrowserRouter>
       

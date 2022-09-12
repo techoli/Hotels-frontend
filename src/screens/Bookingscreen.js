@@ -92,7 +92,7 @@ function Bookingscreen() {
     return (
         <div className='m-5'>
             {loading ? (<Loader />) : room ? (<div>
-                <div className="row justify-content-center mt-5 shadow ">
+                <div className="row justify-content-center mt-5 shadow  " data-aos = 'flip-left'>
                     <div className="col-md-6">
                         <h1>{room.name}</h1>
                         <img src={room.imageurls[1]} className="bigimg" />

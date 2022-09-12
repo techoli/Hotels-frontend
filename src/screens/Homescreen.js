@@ -6,6 +6,12 @@ import Error from '../Component/Error';
 import 'antd/dist/antd.css'
 import moment from 'moment';
 import { DatePicker, Space } from 'antd';
+import AOS from 'aos'
+import 'aos/dist/aos.css';
+
+AOS.init(
+    
+);
 const { RangePicker } = DatePicker;
 function Homescreen() {
 
@@ -101,7 +107,7 @@ function Homescreen() {
 
   return (
     <div className='container'>
-      <div className='row mt-5 shadow'>
+      <div className='row mt-5 shadow' data-aos = 'fade-up'>
         <div className='col-md-3'>
           <RangePicker format='DD-MM-YYYY' onChange={filterbydate} />
         </div>
@@ -120,7 +126,7 @@ function Homescreen() {
         </div>
       </div>
 
-      <div className='row justify-content-center mt-5'>
+      <div className='row justify-content-center mt-5' >
         {loading ? (<Loader />) : (rooms.map(room => {
           return <div className='col-md-9 mt-3'>
             <Room room={room} checkin={checkin} checkout={checkout} />

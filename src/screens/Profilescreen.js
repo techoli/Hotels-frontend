@@ -8,6 +8,7 @@ import { Divider, Tag } from 'antd';
 const { TabPane } = Tabs;
 
 
+
 function Profilescreen() {
     const userdetail = JSON.parse(localStorage.getItem('currentuser'))
 
@@ -83,13 +84,17 @@ export function Mybookings() {
 
     async function cancelbooking(bookingid, roomid) {
         try {
+            setloading(true)
             const res = await axios.post('/api/booking/cancel', {bookingid, roomid}).data
             console.log(res)
+            setloading(false)
             Swal.fire('Congratulations', 'Your room booking has been canceeled successfully', 'success').then(res => {
                 window.location.href = '/bookings'
             })
         } catch (error) {
             console.log(error);
+            setloading(false)
+            seterror(true)
             Swal.fire('Oops', 'Something went wrong', 'error')
 
         }

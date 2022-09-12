@@ -21,6 +21,7 @@ function Adminscreen() {
 
   return (
     <div>
+      <center><h1 className='mt-3'>Admin Page</h1></center>
       <div className='ml-3 mr-3 shadow'>
         <Tabs defaultActiveKey="1" >
           <TabPane tab="Bookings" key="1">
@@ -116,9 +117,9 @@ export function Allrooms() {
   const [loading, setloading] = useState(false)
   const [error, seterror] = useState(false)
   const [show, setShow] = useState(false)
-  const [roomname, setroomname] = useState()
-  const [roomid, setroomid] = useState()
-  const [roomphonenumber, setroomphonenumber] = useState()
+  const [roomname, setroomname] = useState('')
+  const [roomid, setroomid] = useState('')
+  const [roomphonenumber, setroomphonenumber] = useState('')
   const [roomdet, setroomdet] = useState([])
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -148,22 +149,31 @@ export function Allrooms() {
 
   }
   const showModal = async (id) => {
+    console.log(id)
 
     try {
-      setIsModalVisible(true);
+
       const roomdetails = await (await axios.post("/api/rooms/getroomsbyid", { roomid: id })).data
       console.log("roomdetails" + JSON.stringify(roomdetails))
       setroomdet(roomdetails)
+      setroomid(roomdet._id)
+      setroomname(roomdet.name)
+      setroomphonenumber(roomdet.phonenumber)
+
+
 
     } catch (error) {
 
       seterror(true)
     }
+    setIsModalVisible(true);
+
 
 
   };
   const handleOk = () => {
     setIsModalVisible(false);
+
   };
 
   const handleCancel = () => {
@@ -198,10 +208,10 @@ export function Allrooms() {
                   <td><button class="bt" onClick={() => { showModal(rum._id) }}>Update</button></td>
 
                   <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                    
-                    <input type="text" className="form-control mt-2" value={roomdet._id} readonly />
-                    <input type="text" className="form-control mt-2" value={roomdet.name} onChange={(e) => { setroomname(e.target.value) }} />
-                    <input type="text" className="form-control mt-2" value={roomdet.phonenumber} onChange={(e) => { setroomphonenumber(e.target.value) }} />
+
+                    <input type="text" className="form-control mt-2" value={roomid} readonly />
+                    <input type="text" className="form-control mt-2" value={roomname} onChange={(e) => { setroomname(e.target.value) }} />
+                    <input type="text" className="form-control mt-2" value={roomphonenumber} onChange={(e) => { setroomphonenumber(e.target.value) }} />
 
                   </Modal>
 
@@ -226,10 +236,84 @@ export function Allrooms() {
 }
 
 export function Addrooms() {
+  const [name, setname] = useState();
+  const [maxcount, setmaxcount] = useState();
+  const [phonenumber, setphonenumber] = useState();
+  const [rentperday, setrentperday] = useState();
+  const [imageurl1, setimageurls1] = useState();
+  const [imageurl2, setimageurls2] = useState();
+  const [imageurl3, setimageurls3] = useState();
+  //const [imageurls, setimageurls] = useState([]);
+  const [description, setdescription] = useState();
+  const [type, settype] = useState();
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState(false);
 
+
+
+  async function addroomapi() {
+    const imageurls = [];
+    imageurls.push(imageurl1)
+    imageurls.push(imageurl2)
+    imageurls.push(imageurl3)
+    console.log(imageurls)
+
+    const roomapi = {
+      name,
+      maxcount,
+      phonenumber,
+      rentperday,
+      imageurls,
+      description,
+      type
+    }
+    try {
+      setloading(true)
+      const resultapi = (await axios.post("/api/rooms/createroom", roomapi)).data
+      setloading(false)
+      setname('')
+      setmaxcount('')
+      setphonenumber('')
+      setrentperday('')
+      setimageurls1('')
+      setimageurls2('')
+      setimageurls3('')
+      setdescription('')
+      settype('')
+    } catch (error) {
+      setloading(false)
+      seterror(true)
+
+    }
+  }
   return (
-    <div>
-      <h1>addrooms</h1>
+    <div className='row justify-content-center'>
+      
+
+      {loading && (<Loader />)}
+          {error && (<Error message = 'Sorry an error occured'/>)}
+
+        <div className='col-md-4 '>
+          
+          <input type="text" className="form-control mt-2" placeholder="Room Name" value={name} onChange={(e) => { setname(e.target.value) }} />
+          <input type="text" className="form-control mt-2" placeholder="Maxcount" value={maxcount} onChange={(e) => { setmaxcount(e.target.value) }} />
+          <input type="text" className="form-control mt-2" placeholder="Phone Number" value={phonenumber} onChange={(e) => { setphonenumber(e.target.value) }} />
+          <input type="text" className="form-control mt-2" placeholder="Rent Per Day" value={rentperday} onChange={(e) => { setrentperday(e.target.value) }} />
+          <input type="text" className="form-control mt-2" placeholder="Image URL 1" value={imageurl1} onChange={(e) => { setimageurls1(e.target.value) }} />
+          
+
+        </div>
+        <div className='col-md-4 '>
+          
+        
+          <input type="text" className="form-control mt-2" placeholder="Image URL 2" value={imageurl2} onChange={(e) => { setimageurls2(e.target.value) }} />
+          <input type="text" className="form-control mt-2" placeholder="Image URL 3" value={imageurl3} onChange={(e) => { setimageurls3(e.target.value) }} />
+          <input type="text" className="form-control mt-2" placeholder="Description" value={description} onChange={(e) => { setdescription(e.target.value) }} />
+          <input type="text" className="form-control mt-2" placeholder="Type" value={type} onChange={(e) => { settype(e.target.value) }} />
+          <button className='btn btn-primary mt-3' style={{float:"right"}} onClick={addroomapi}>Create Room</button>
+
+        </div>
+      
 
     </div>
   )

@@ -7,7 +7,7 @@ function Navbar() {
         window.location.href = '/login'
     }
     return (
-        <div>
+        <div >
             <nav class="navbar navbar-expand-lg ">
                 <a class="navbar-brand" href="">Hotels.ng</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

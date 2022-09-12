@@ -9,7 +9,7 @@ function Room({ room,checkin,checkout }) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     return (
-        <div className='row shadow'>
+        <div className='row shadow ' data-aos = 'fade-up'>
             <div className='col-md-4'>
                 <img src={room.imageurls[0]} className='smalling' />
             </div>
